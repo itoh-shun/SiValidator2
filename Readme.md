@@ -13,7 +13,7 @@ require_once 'SiValidator2/require.php';
 
 $values = ['event_date' => '2022-01-02'];
 $rules = ['event_date' => ['before:2022-01-03']];
-$validator = SiValidator2::make($values, $rules);
+$validator = SiLibrary\SiValidator2::make($values, $rules);
 
 if ($validator->isError()) {
     echo "エラーがあります。";
