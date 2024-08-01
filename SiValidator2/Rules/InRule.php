@@ -6,7 +6,7 @@ class InRule implements RuleInterface
 {
     protected $values;
 
-    public function __construct(array $values)
+    public function __construct(...$values)
     {
         $this->values = $values;
     }
