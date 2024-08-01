@@ -2,7 +2,7 @@
 
 namespace SiLibrary\SiValidator2\Rules;
 
-use SiLibrary\SpiralConnecter\SpiralDB;
+use SpiralDB;
 
 class UniqueRule implements RuleInterface
 {

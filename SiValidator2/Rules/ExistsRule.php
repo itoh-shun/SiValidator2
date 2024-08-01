@@ -2,7 +2,7 @@
 
 namespace SiLibrary\SiValidator2\Rules;
 
-use SiLibrary\SpiralConnecter\SpiralDB;
+use SpiralDB;
 use SiLibrary\SiValidator2\Rule;
 
 class ExistsRule implements RuleInterface
