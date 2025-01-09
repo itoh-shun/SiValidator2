@@ -28,6 +28,7 @@ use SiLibrary\SiValidator2\Rules\ExcludeIfRule;
 use SiLibrary\SiValidator2\Rules\ExcludeUnlessRule;
 use SiLibrary\SiValidator2\Rules\ExcludeWithoutRule;
 use SiLibrary\SiValidator2\Rules\ExistsRule;
+use SiLibrary\SiValidator2\Rules\InRule;
 use SiLibrary\SiValidator2\Rules\IntegerRule;
 use SiLibrary\SiValidator2\Rules\JsonRule;
 use SiLibrary\SiValidator2\Rules\MaxBytesRule;
@@ -86,6 +87,7 @@ class SiValidator2
         'max_bytes' => [MaxBytesRule::class,['value']],
         'json' => [JsonRule::class, []],
         'integer' => [IntegerRule::class, []],
+        'in' => [InRule::class, ['value']]
         //'distinct' => [DistinctRule::class,['mode'], 'apply_to_array' => true],
     ];
 
