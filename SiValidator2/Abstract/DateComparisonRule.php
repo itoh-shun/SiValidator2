@@ -2,6 +2,8 @@
 
 namespace SiLibrary\SiValidator2\Rules;
 
+use SiLibrary\SiDateTime;
+
 abstract class DateComparisonRule implements RuleInterface
 {
     protected $referenceDateOrField;
@@ -17,7 +19,7 @@ abstract class DateComparisonRule implements RuleInterface
             return false;
         }
 
-        $valueDate = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime($value)));
+        $valueDate = new SiDateTime($value);
 
         // Check if reference is another field's value
         if (isset($allValues[$this->referenceDateOrField])) {
@@ -30,7 +32,7 @@ abstract class DateComparisonRule implements RuleInterface
             return false;  // The reference date is not a valid date
         }
 
-        $refDate = \DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime($refDateString)));
+        $refDate = new SiDateTime($refDateString);
 
         return $this->compareDates($valueDate, $refDate);
     }

@@ -3,6 +3,8 @@
 namespace SiLibrary\SiValidator2\Rules;
 
 // Date Rule
+use DateTime;
+
 class DateRule implements RuleInterface
 {
     public static function processable($value): bool
@@ -12,17 +14,34 @@ class DateRule implements RuleInterface
 
     public function validate($value, array $allValues = []): bool
     {
-        // アルファベットを含む場合はエラー
-        if (preg_match('/[a-zA-Z]/', $value)) {
-            return false;
+        $zone = null;
+        $date = $value;
+        if (!empty($timezone)) {
+            $zone = new \DateTimeZone($timezone);
+        }
+        if (self::hasFormat($date, 'Y年m月d日')) {
+            $date = \DateTime::createFromFormat('Y年m月d日', $date, $zone);
+            $date = $date->format('Y-m-d H:i:s.u');
+        } elseif (self::hasFormat($date, 'Y年m月d日 H時i分s秒')) {
+            $date = \DateTime::createFromFormat(
+                'Y年m月d日 H時i分s秒',
+                $date,
+                $zone
+            );
+            $date = $date->format('Y-m-d H:i:s.u');
         }
 
-        $timestamp = strtotime($value);
-        if ($timestamp === false) {
-            return false;
-        }
+        return (!!(new DateTime($date, $zone)));
+    }
 
-        return true;
+    public static function hasFormat($date, $format)
+    {
+        return (bool) \DateTime::createFromFormat($format, $date);
+    }
+
+    public static function now($timezone = '')
+    {
+        return new self('now', $timezone);
     }
 
     public function message(): string

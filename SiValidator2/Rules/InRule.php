@@ -4,26 +4,38 @@ namespace SiLibrary\SiValidator2\Rules;
 
 class InRule implements RuleInterface
 {
-    protected $values;
+    /**
+     * @var array 許可された値のリスト
+     */
+    protected array $allowedValues;
 
-    public function __construct(...$values)
+    /**
+     * コンストラクタで許可された値を設定します。
+     *
+     * @param array $allowedValues
+     */
+    public function __construct(string ...$allowedValues)
     {
-        $this->values = $values;
+        $this->allowedValues = $allowedValues;
     }
 
-    public static function processable($value): bool
+    public static function processable($value, $field = null): bool
     {
-        return true;  // 常にこのルールを処理
+        return true; // 全ての値を処理可能
     }
 
-    public function validate($value, array $allValues = []): bool
+    public function validate($value, $allValues = []): bool
     {
-        return in_array($value, $this->values, true);
+        if(empty($value)){
+            return true;
+        }
+        // 許可された値に含まれているかを確認
+        return in_array($value, $this->allowedValues, true);
     }
 
     public function message(): string
     {
-        return "この値は有効な選択肢のいずれかでなければなりません。";
+        return ':attribute には許可された値のいずれかを指定してください: ' . implode(', ', $this->allowedValues) . '.';
     }
 
     public function name(): string

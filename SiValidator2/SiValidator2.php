@@ -87,7 +87,7 @@ class SiValidator2
         'max_bytes' => [MaxBytesRule::class,['value']],
         'json' => [JsonRule::class, []],
         'integer' => [IntegerRule::class, []],
-        'in' => [InRule::class, ['values']],
+        'in' => [InRule::class, ['value']]
         //'distinct' => [DistinctRule::class,['mode'], 'apply_to_array' => true],
     ];
 
